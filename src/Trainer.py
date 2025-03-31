@@ -1,40 +1,18 @@
 import os
-# import numpy as np
-from tqdm.auto import tqdm
-
 import torch
-# import torch.nn.functional as F
-
-# from torch.optim import AdamW
-# from torch.utils.data import DataLoader
-# from torch.optim.lr_scheduler import CosineAnnealingLR
-
-
-
-# # Hyperparameters
-# batch_size = 16
-# learning_rate = 8e-4
-# weight_decay = 0.01
-# num_epochs = 50
-# grad_accumulation_steps = 8
-# max_grad_norm = 1.0
-# warmup_steps = 1000
-# device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-
-# Create dataloaders
-# dataloaders = {
-#     split: DataLoader(
-#         dataset[split],
-#         batch_size=batch_size if split != 'test' else 4,
-#         shuffle=(split == 'train'),
-#         pin_memory=True,
-#         num_workers=4
-#     ) for split in ['train', 'valid', 'test']
-# }
-
-
+from tqdm.auto import tqdm
+# Pending: Create Trainer class for cleaner and better code
 def train_epoch(model, train_loader, optimizer, scheduler, device, step_based_scheduler=True):
-    """Run one epoch of training using model's training_step method."""
+    """Run one epoch of training using model's training_step method.
+    args:
+    model: model object
+    train_loader
+    optimizer
+    scheduler
+    device: device to train on (multi device not supported)
+    step_based_scheduler: whether the scheduler is step based True or False
+    
+    """
     model.train()
     train_loss = 0
     train_steps = 0
@@ -73,8 +51,6 @@ def validate(model, val_loader, device):
     model.eval()
 
     valid_loss = 0
-    # valid_tok = 0
-    # valid_seq = 0
     valid_steps = 0
     
     with torch.no_grad():

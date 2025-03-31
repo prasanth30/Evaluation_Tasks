@@ -7,8 +7,6 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Train a model for research evaluation')
     
     # Data arguments
-    parser.add_argument('--data-dir', type=str, required=True, 
-                        help='Directory containing the dataset')
     
     
     args = parser.parse_args()

@@ -1,25 +1,20 @@
-from typing import Any
-import pytorch_lightning as pl
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+import pytorch_lightning as pl
+
 from mamba_ssm.models.config_mamba import MambaConfig
 from mamba_ssm.utils.generation import InferenceParams
 
-
-
-import json
-from transformers.optimization import get_inverse_sqrt_schedule
 from transformers import PreTrainedTokenizerFast
-import evaluate
+from transformers.optimization import get_inverse_sqrt_schedule
 
-from utils.helpers.flash_cross_attention import FlashCrossAttentionWrapper
-from .utils.helpers.cross_attention import CrossAttentionWrapper
 from .utils.helpers.ffn import FeedForwardWrapper
-from mamba import MambaDecoder, MixerModel
+from .utils.helpers.flash_cross_attention import FlashCrossAttentionWrapper
+from .mamba import MambaDecoder, MixerModel
 
-
+# TODO: change max seq len to arg
 class MambaEncDec(pl.LightningModule):
     is_encoder_decoder = True
     is_concat = False  # FIXME remove
@@ -98,7 +93,6 @@ class MambaEncDec(pl.LightningModule):
         )
 
         self.tokenizer = tokenizer
-        self.bleu = evaluate.load("sacrebleu")
         self.config = config
         self.use_padding = use_padding
         dtype_map = {
@@ -150,13 +144,6 @@ class MambaEncDec(pl.LightningModule):
             key_value_memory_dict=cache,
         )
         
-        # batch, seqlen, dim = self.decoder.backbone.embedding.forward(input_ids).shape
-        # conv_state, ssm_state = self.decoder.backbone.layers[0].mixer._get_states_from_cache(inference_params, b)
-        # inference_params = None
-        # print(conv_state.type(),input_ids.type(), source_vec.type())
-        # print(source_attention_mask.type(), target_attention_mask.type())
-        # print(position_ids.type())
-        # print(num_last_tokens)
         logits = self.decoder.forward(
             input_ids,
             context=source_vec,
@@ -169,11 +156,7 @@ class MambaEncDec(pl.LightningModule):
         return logits
 
     def training_step(self, batch, batch_idx):
-        # source, target, source_attention_mask = (
-        #     batch["input_ids"],
-        #     batch["labels"],
-        #     batch["src_attention_mask"],
-        # )
+
         source, target, _, source_attention_mask, _ = batch
         # source, target, source_attention_mask, 
 
@@ -197,19 +180,12 @@ class MambaEncDec(pl.LightningModule):
             labels.view(-1),
             ignore_index=self.tokenizer.pad_token_id,
         )
-        # self.log("train_loss", loss, sync_dist=True)
+        
         return loss
 
     def validation_step(self, batch, batch_idx):
-        # src_tokens, labels, source_attention_mask = (
-        #     batch["input_ids"],
-        #     batch["labels"],
-        #     batch["src_attention_mask"],
-        # )
-        src_tokens, target, _, source_attention_mask, _ = batch
 
-        batch_size, seq_len = src_tokens.shape
-        max_length = 351
+        src_tokens, target, _, source_attention_mask, _ = batch
 
         target_attention_mask = (
             (target != self.tokenizer.pad_token_id).to(torch.bool).to(src_tokens.device)
@@ -234,14 +210,8 @@ class MambaEncDec(pl.LightningModule):
         return loss
         
     def test_step(self, batch, batch_idx):
-        """beam search with parallel formulation"""
-        # num_beams = 1
+        """autoregressive generation"""
 
-        # # source_tokens, labels, source_attention_mask = (
-        # #     batch["input_ids"],
-        # #     batch["labels"],
-        # #     batch["attention_mask"],
-        # # )
         src_tokens, _, labels, source_attention_mask, _ = batch
         batch_size, seq_len = src_tokens.shape
         max_length = 350
@@ -249,7 +219,6 @@ class MambaEncDec(pl.LightningModule):
             batch_size=batch_size,
             max_seqlen=max_length + seq_len + 1,  # source + BOS
             dtype=self.precision,
-            # dtype = ,
         )
         inference_params = InferenceParams(
             max_seqlen=max_length + seq_len + 1,
@@ -267,7 +236,7 @@ class MambaEncDec(pl.LightningModule):
             input_ids=src_tokens,
             mask=source_attention_mask,
         )
-        # print('Source vec:', source_vec)
+
         position_ids = None
 
         for idx in range(labels.size(1)):
@@ -307,10 +276,10 @@ class MambaEncDec(pl.LightningModule):
         
         preds = preds.cpu()
         labels = labels.cpu()
-        
+
+        # Clear GPU
         import gc
         del cache, logits, next_token_logits, inference_params
-        
         if position_ids is not None:
             position_ids = position_ids.cpu()
             del position_ids
@@ -318,25 +287,13 @@ class MambaEncDec(pl.LightningModule):
         eos_mask = eos_mask.cpu()
         del eos_mask
         gc.collect()
-        
         torch.cuda.empty_cache()
 
         return preds, labels
 
-
     def on_test_epoch_end(self):
         # TODO save results
         pass
-
-    def _reorder_cache(self, cache, beam_idx):
-        for layer_idx in self.layers:
-            device = cache[layer_idx][0].device
-            # {0:(conv_state, ssm_state)}
-            cache[layer_idx] = (
-                cache[layer_idx][0].index_select(0, beam_idx.to(device)),
-                cache[layer_idx][1].index_select(0, beam_idx.to(device)),
-            )
-        return cache
 
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(

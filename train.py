@@ -3,6 +3,7 @@ import json
 import logging
 
 import pandas as pd
+from easydict import EasyDict as edict
 
 from .src.tokenizer import Tokenizer
 from .src.Trainer import train_model
@@ -10,7 +11,7 @@ from .src.Evaluator import calculate_accuracy
 from .src.models.model_factory import get_model
 from .src.constants import special_symbols, BOS_IDX, EOS_IDX, PAD_IDX, SEP_IDX, UNK_IDX
 from .src.data import get_dataloaders
-from .argparser import parse_args
+from .argparser import get_config
 
 # Set up logging
 logging.basicConfig(
@@ -22,21 +23,17 @@ logger = logging.getLogger(__name__)
 def main():
     """Main training function."""
     # Parse arguments
-    args = parse_args()
-    
+    config = get_config()
+    args = edict(config)
     # Save arguments
     args_path = os.path.join(args.output_dir, args.exp_name, 'args.json')
     with open(args_path, 'w') as f:
         json.dump(vars(args), f, indent=4)
     logger.info(f"Saved arguments to {args_path}")
     
-    # Load model configuration
-    with open(args.model_config, 'r') as f:
-        model_config = json.load(f)
-    
 
     # Call your existing train_model function with the parsed arguments
-    logger.info(f"Starting training for {args.model_type} model")
+    logger.info(f"Starting training for {args.model_name} model")
     
     train_df = pd.read_csv('./data/train.csv')
     val_df = pd.read_csv('./data/train.csv')

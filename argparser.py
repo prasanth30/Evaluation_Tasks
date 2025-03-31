@@ -12,10 +12,10 @@ def create_arg_parser():
                         help='Directory to save model checkpoint')
     parser.add_argument('--exp_name', type=str, default="custom", 
                         help='Name of experiment')
-    parser.add_argument('--model_name', type=str, default="mamba_seq2seq", choices=['mamba_seq2seq'],
+    parser.add_argument('--model_name', type=str, default="mamba_enc_dec", choices=['mamba_seq2seq'],
                         help='Name of model to use')
-    parser.add_argument('--seed', type=str, default="mamba_seq2seq", choices=['mamba_seq2seq'],
-                        help='Name of model to use')
+    parser.add_argument('--seed', type=str, default=42,help='seed')
+    
     # Data configuration
     data_group = parser.add_argument_group('Data Configuration')
     data_group.add_argument('--src_max_len', type=int, default=300, help='Maximum length of source sequence')
@@ -49,6 +49,9 @@ def create_arg_parser():
     trainer_group.add_argument('--max_epochs', type=int, default=50, help='Maximum number of epochs')
     trainer_group.add_argument('--patience', type=int, default=5, help='Patience for early stopping')
     
+    #Test config
+    testing_group = parser.add_argument_group('Tester Configuration')
+    testing_group.add_argument('--test_limit', type=int, default=42, help='number of batches to infer on')
     return parser
 
 def get_config():
@@ -60,6 +63,11 @@ def get_config():
         print("Using custom configuration from command-line arguments.")
         # Convert args to config dictionary
         config = {
+            "model_name": args.model_name,
+            "exp_num": args.exp_num,
+            "exp_name": args.exp_name,
+            "output_dir": args.output_dir,
+            "seed": args.seed,
             "data_config": {
                 "src_max_len": args.src_max_len,
                 "tgt_max_len": args.tgt_max_len,
@@ -90,6 +98,9 @@ def get_config():
                 "device_id": args.device_id,
                 "max_epochs": args.max_epochs,
                 "patience": args.patience
+            },
+            "testing_config":{
+                "test_limit": args.test_limit
             }
         }
     else:

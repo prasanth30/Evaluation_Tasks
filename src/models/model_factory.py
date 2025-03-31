@@ -7,7 +7,7 @@ def get_model(model_name, args):
         return 
     
     elif model_name == 'mamba_enc_dec':
-        return MambaEncDec(args)
+        return MambaEncDec(**args, config=args)
     
     else:
         raise "Model not found"

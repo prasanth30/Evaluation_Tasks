@@ -3,6 +3,23 @@
 ## Overview
 This repo is my submission of evaluation tasks for **State-space models for squared amplitude calculation in high-energy physics** SYMBA, ML4Sci.
 
+## Problem Statement
+Squared Amplitudes play a major role in calculation cross-section or probabilty that a particular process takes place in the interaction of elementary particles. Using Amplitude expressions one can use a Seq2Seq model to get squared Amplitude expressions.
+
+## Common Task 1
+Dataset preprocessing
+Dataset: [Link](https://alabama.box.com/s/xhgr2onrn503jyse2fs5vxtapg0oifcs) 
+
+For Details: 
+
+## Common Task 2
+Training a generic next-token-prediction Transformer model to map the input data to the tokenized output sequences.
+
+
+## Specific Task - State Space Models
+State-space model such as mamba or other model for squared amplitudes calculation
+
+
 ## Project Structure
 
 ```

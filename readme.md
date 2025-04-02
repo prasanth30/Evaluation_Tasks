@@ -4,12 +4,11 @@
 
 This repo is my submission of evaluation tasks for **State-space models for squared amplitude calculation in high-energy physics** SYMBA, ML4Sci.
 
-## Files
+## Folders
 
 1. Folder [Common Task 1](./Common_Task_1/) contains notebook for tokenization and rationale of choice.
 2. Folder [Common Task 2](./Common_Task_2/) contains notebook for Transformer Architecture.
 3. Folder [Specific Task 3.2](./Specific_Task_SSM/) contains notebook with SSMs.
-4. 
 
 ## Problem Statement
 

@@ -25,13 +25,13 @@ For Details: [Readme](./Common_Task_1/readme.md)
 
 Training a generic next-token-prediction Transformer model to map the input data to the tokenized output sequences.
 
-For details: [Readme](./Common_Task_2/readme.md)
+For details and model weights: [Readme](./Common_Task_2/readme.md)
 
 ## Specific Task - State Space Models
 
 State-space model such as mamba or other model for squared amplitudes calculation
 
-For details: [Readme](./Specific_Task_SSM/readme.md)
+For details and model weights: [Readme](./Specific_Task_SSM/readme.md)
 ## Project Structure
 
 ```

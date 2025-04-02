@@ -83,7 +83,7 @@ SYMBA_SSM_TASKS/
 
 ## Setup
 
-While the notebooks are ready to use, script is still work in progress. 
+While the notebooks are ready to use, scripts are still work in progress. 
 
 ### Prerequisites
 This implementation consists of mamba_ssm library which depends on hardware type used so make sure you have a GPU with CUDA 11.6 and above. If you face errors still checkout, [This Issue](https://github.com/state-spaces/mamba/issues/186). For Instance on kaggle for T4x2, this code can be run effortlessly with proper installations, but P100 doesnot work and requires some troubleshooting.

@@ -17,4 +17,10 @@ Tokenization has huge impact on performance of the model. Amplitude and Squared 
 
 - Indices that are not Lorentz or spinor-related, such as summation indices or generic tensor indices, should be normalized to a consistent format.
 
+## Implementation details
+
+- I have used the text files to extract the expressions and create dataframe. Which was further split it into train-val-test split. I have normalized the expressions and built tokenizer.
+
+- To simplify implementation, I have used vocab class from torchtext (which got deprecated, so I have rebuilt it from source)
+
 Refer to the notebook for more details

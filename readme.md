@@ -10,7 +10,7 @@ Squared Amplitudes play a major role in calculation cross-section or probabilty 
 Dataset preprocessing
 Dataset: [Link](https://alabama.box.com/s/xhgr2onrn503jyse2fs5vxtapg0oifcs) 
 
-For Details: 
+For Details: [Readme](./Common_Task_1/readme.md)
 
 ## Common Task 2
 Training a generic next-token-prediction Transformer model to map the input data to the tokenized output sequences.

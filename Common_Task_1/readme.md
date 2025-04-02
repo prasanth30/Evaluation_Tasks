@@ -1,6 +1,6 @@
 # Rationale on Common Task 1
 
-Tokenization has huge impact on performance on the model. Amplitude and Squared Amplitude expressions consist of various terms like momentum, spinor indices and other mathematical symbols, which require careful tokenization to ensure meaningful input representations for the model.
+Tokenization has huge impact on performance of the model. Amplitude and Squared Amplitude expressions consist of various terms like momentum, spinor indices and other mathematical symbols, which require careful tokenization to ensure meaningful input representations for the model.
 
 1. Tokenizing Special Functions Properly
 
@@ -15,3 +15,5 @@ Tokenization has huge impact on performance on the model. Amplitude and Squared 
 - For instance, converting all summation indices (e.g., i, j, k) into a standardized form prevents the model from overfitting to specific index choices.
 
 - Example: Instead of treating A_i in one sequence and A_j in another sequence as distinct structures, normalizing to a generic index representation (e.g., A_x) can improve generalization.
+
+Write about Tokenization

@@ -1,6 +1,7 @@
 # SYMBA_SSM_TASKS
 
 ## Overview
+
 This repo is my submission of evaluation tasks for **State-space models for squared amplitude calculation in high-energy physics** SYMBA, ML4Sci.
 
 ## Files
@@ -8,61 +9,77 @@ This repo is my submission of evaluation tasks for **State-space models for squa
 1. Folder [Common Task 1](./Common_Task_1/) contains notebook for tokenization and rationale of choice.
 2. Folder [Common Task 2](./Common_Task_2/) contains notebook for Transformer Architecture.
 3. Folder [Specific Task 3.2](./Specific_Task_SSM/) contains notebook with SSMs.
+4. 
 
 ## Problem Statement
+
 Squared Amplitudes play a major role in calculation cross-section or probabilty that a particular process takes place in the interaction of elementary particles. Using Amplitude expressions one can use a Seq2Seq model to get squared Amplitude expressions.
 
 ## Common Task 1
+
 Dataset preprocessing
 Dataset: [Link](https://alabama.box.com/s/xhgr2onrn503jyse2fs5vxtapg0oifcs) 
 
 For Details: [Readme](./Common_Task_1/readme.md)
 
 ## Common Task 2
+
 Training a generic next-token-prediction Transformer model to map the input data to the tokenized output sequences.
 
-For Details: [Readme](./Common_Task_2/readme.md)
+For details: [Readme](./Common_Task_2/readme.md)
 
 ## Specific Task - State Space Models
+
 State-space model such as mamba or other model for squared amplitudes calculation
 
-
+For details: [Readme](./Specific_Task_SSM/readme.md)
 ## Project Structure
 
 ```
 SYMBA_SSM_TASKS/
-│-- config/                  # Configuration files
-│   │-- __init__.py          
-│   │-- configs.py           # Defines various model and training configurations
-│   │-- get_config.py        # Utility for fetching configurations
-│
-│-- data/                    # Directory for datasets (empty by default)
-│
-│-- notebooks/               # Jupyter notebooks for experiments (empty by default)
-│
-│-- src/                     # Source code for models and utilities
-│   │-- models/              # Model implementations
-│   │   │-- mamba_hybrid/    # Hybrid Mamba-based models
-│   │   │   │-- utils/helpers/
-│   │   │   │   │-- cross_attention.py
-│   │   │   │   │-- ffn.py
-│   │   │   │   │-- flash_cross_attention.py
-│   │   │   │   │-- __init__.py
-│   │   │   │-- mamba_enc_dec.py  # Mamba-based encoder-decoder model
-│   │   │-- mamba.py         # Core Mamba model implementation
-│   │   │-- transformer_seq2seq/ # Transformer-based seq2seq models
-│   │   │-- model_factory.py  # Factory function for model selection
-│   │
-│   │-- utils/               # General-purpose utilities
-│   │   │-- Vocab/           # Vocabulary utilities
-│   │   │   │-- __init__.py
-│   │   │-- constants.py     # Constant definitions
-│   │   │-- data.py          # Data handling functions
-│   │   │-- Evaluator.py     # Evaluation metrics and scoring
-│   │   │-- preprocess_data.py # Data preprocessing scripts
-│   │   │-- preprocess.py    # General preprocessing functions
-│   │   │-- tokenizer.py     # Tokenization utilities
-│   │   │-- Trainer.py       # Training pipeline
+├── 📂 Common_Task_1
+│   ├── 📄 readme.md
+│   ├── 📄 Tokenization&EDA.ipynb
+├── 📂 Common_Task_2
+│   ├── 📄 readme.md
+│   ├── 📄 transformer.ipynb
+├── 📂 config
+│   ├── 🐍 __init__.py
+│   ├── 🐍 configs.py
+│   ├── 🐍 get_config.py
+├── 📂 data
+├── 📂 Specific_Task_SSM
+│   ├── 📄 readme.md
+│   ├── 📄 ssm_testing.ipynb
+│   ├── 📄 ssm_training.ipynb
+├── 📂 src
+│   ├── 📂 models
+│   │   ├── 📂 mamba_hybrid
+│   │   │   ├── 📂 utils
+│   │   │   │   ├── 📂 helpers
+│   │   │   │   │   ├── 🐍 __init__.py
+│   │   │   │   │   ├── 🐍 cross_attention.py
+│   │   │   │   │   ├── 🐍 ffn.py
+│   │   │   │   │   ├── 🐍 flash_cross_attention.py
+│   │   │   ├── 🐍 mamba.py
+│   │   │   ├── 🐍 mamba_enc_dec.py
+│   │   ├── 📂 transformer_seq2seq
+│   │   ├── 🐍 model_factory.py
+│   ├── 📂 utils
+│   │   ├── 📂 Vocab
+│   │   │   ├── 🐍 __init__.py
+│   │   │   ├── 🐍 vocab_utils.py
+│   │   │   ├── 🐍 vocab.py
+│   ├── 🐍 constants.py
+│   ├── 🐍 data.py
+│   ├── 🐍 Evaluator.py
+│   ├── 🐍 preprocess_data.py
+│   ├── 🐍 preprocess.py
+│   ├── 🐍 tokenizer.py
+│   ├── 🐍 Trainer.py
+│   ├── 🐍 argparser.py
+│   ├── 📄 readme.md
+│   ├── 🐍 train.py
 ```
 
 ## Setup

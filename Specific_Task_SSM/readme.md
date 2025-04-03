@@ -16,5 +16,7 @@ Model weights can be found at [link](https://drive.google.com/file/d/1fEdJcy9kPs
 
 In proposal I have briefly discussed about two architectures that I'll work on. One of them being used here.
 
-![Image](https://github.com/user-attachments/assets/18282c70-a9c4-4c50-946a-85c63e32d6f3 | width=100)
+![Image](https://github.com/user-attachments/assets/18282c70-a9c4-4c50-946a-85c63e32d6f3)
+
+<img src='https://github.com/user-attachments/assets/18282c70-a9c4-4c50-946a-85c63e32d6f3' width="100">
 

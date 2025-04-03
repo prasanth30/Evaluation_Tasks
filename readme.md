@@ -105,8 +105,8 @@ pip install -q /kaggle/working/mamba
 Other Requirements (takes around 1 minute)
 ```sh
 pip install -q causal-conv1d>=1.4.0
-pip install triton
-pip -q install lightning torchscale evaluate huggingface_hub unbabel-comet flash-attn
+pip install -q triton
+pip -q install lightning torchscale evaluate huggingface_hub flash-attn
 pip install -q x-transformers
 ```
 

@@ -32,6 +32,14 @@ For details and model weights: [Readme](./Common_Task_2/readme.md)
 State-space model such as mamba or other model for squared amplitudes calculation
 
 For details and model weights: [Readme](./Specific_Task_SSM/readme.md)
+
+## Results
+
+| Model | Number of Encoders | Number of Decoders | Token Accuracy | Sequence Accuracy |
+| ----- | ------------------ | ------------------ | -------------- | ----------------- |
+| Vanilla Transformer | 2 | 4 | 95.68\% | 91.58\% |
+| Mamba Encoder Decoder | 1 | 1 | 94.68\% | 91.46\% |
+
 ## Project Structure
 
 ```

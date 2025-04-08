@@ -4,6 +4,7 @@
 
 This repo is my submission of evaluation tasks for **State-space models for squared amplitude calculation in high-energy physics** SYMBA, ML4Sci.
 
+**NOTE:** Only notebooks are ready to run, scripts are just for reference and work in progress.
 ## Folders
 
 1. Folder [Common Task 1](./Common_Task_1/) contains notebook for tokenization and rationale of choice.
